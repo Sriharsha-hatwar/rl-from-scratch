@@ -6,16 +6,6 @@ import numpy as np
 import torch.nn.functional as F
 
 
-# We will evaluate the REINFORCE algorithm on the MountainCar-v0 environment
-# from OpenAI Gym. The goal of the agent is to drive a car up a hill. However,
-# the car is under-powered and cannot drive directly up the hill. Instead, it
-# must drive back and forth to build up momentum. The agent receives a reward
-# of -1 for each time step, until it reaches the goal at the top of the hill.
-# The agent receives a reward of 0 if it reaches the goal. The agent receives
-# a reward of -100 if it falls off the hill. The agent receives an observation
-# of its position and velocity. The agent can choose to drive left, right, or
-# not at all.
-
 class PolicyModel(nn.Module):
     def __init__(self, input_size, output_size, hidden_size_one, hidden_size_two):
         # Here the input size is the size of the state space.
@@ -121,8 +111,8 @@ class CartPoleAgent():
     
     def convert_to_return(self, rewards):
         # Convert the list of rewards to a return.
-        # The return is the sum of the rewards.
-        # Use the discount factor and the rewards to calculate the return.
+        # The return is the sum of the rewards or the discounted sum of the rewards.
+        # For now, just return the sum of the rewards.
         total_return = 0
         for i, reward in enumerate(rewards):
             total_return += (self.discount_factor ** i) * reward
@@ -187,7 +177,7 @@ def get_hyper_params():
     # Is there any way to set the learning rate dynamically?
     alpha_policy = 1e-3 # The learning rate for the policy network.
     alpha_weights = 1e-2  # The learning rate for the weights network.
-    reward_scale = 0.01 # TODO : What is this?
+    reward_scale = 0.01 # TODO : This can be used to learn a better model by scaling the rewards.
     seed = 42 # The seed for the random number generators.
     return {"num_episodes" : no_episodes, 
             "gamma" : gamma, 
@@ -243,7 +233,7 @@ def train_reinforce(env_name, device):
         rewards = []
         # Run the episode until termination.
         done = False
-        # Stop the process if the return / reward is greater than 200,
+        # Stop the process if the return / reward is greater than 500,
         # Reimplement the stopping criteria if its return.
 
         if stopping_criteria_reached(epi_rewards, agent):

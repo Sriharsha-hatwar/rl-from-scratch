@@ -186,7 +186,7 @@ def get_hyper_params():
     # Is there any way to set the learning rate dynamically?
     alpha_policy = 1e-3 # The learning rate for the policy network.
     alpha_weights = 1e-2  # The learning rate for the weights network.
-    reward_scale = 0.01 # TODO : What is this?
+    reward_scale = 0.01 # TODO : This can be used to learn a better model by scaling the rewards.
     seed = 42 # The seed for the random number generators.
     return {"num_episodes" : no_episodes, 
             "gamma" : gamma, 
