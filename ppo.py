@@ -55,7 +55,7 @@ HYPERPARAMS = {
         'value_learning_rate' : 5e-3,
         'no_of_epochs': 10,
         'epsilon' : 0.2,
-        'batch_size': 128,
+        'batch_size': 256,
     },
 }
 
@@ -315,6 +315,8 @@ if __name__ == '__main__':
         agent = PPO(env=env, rand_seed=rand_seed)
         agent.train()
         agent.env.close()
+
+    print(f'Evaluating environment {env_name} with random seed {rand_seed}.... \n\n')
     env = gym.make(env_name, render_mode='human')
     agent = PPO(env=env, rand_seed=rand_seed, eval_mode=True)
     agent.eval()
