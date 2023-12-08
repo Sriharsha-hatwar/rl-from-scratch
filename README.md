@@ -5,6 +5,14 @@ This project was done as a part of the cource project COMPSCI 687. We have imple
 
 ## Reinforce with baseline results : 
 
+### Cartpole : 
+![](https://github.com/Sriharsha-hatwar/RL-Proj/blob/main/GIFS/reinforce-cartpole.gif)
+
+### Acrobot : 
+![](https://github.com/Sriharsha-hatwar/RL-Proj/blob/main/GIFS/acrobot-reinforce.gif)
+
+### Lunar lander : 
+![](https://github.com/Sriharsha-hatwar/RL-Proj/blob/main/GIFS/lunar-lander-reinforce.gif)
 
 ## Actor critic results : 
 
