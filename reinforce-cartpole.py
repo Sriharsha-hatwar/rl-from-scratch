@@ -158,8 +158,6 @@ class CartPoleAgent():
                     print("Total reward in episode : ", episode, "is : ", total_reward)
                     observation, _ = env.reset()
                     break
-                
-            #env.render()
         env.close()
 
 
@@ -179,7 +177,7 @@ def get_hyper_params():
     alpha_policy = 1e-3 # The learning rate for the policy network.
     alpha_weights = 1e-2  # The learning rate for the weights network.
     reward_scale = 0.01 # TODO : This can be used to learn a better model by scaling the rewards.
-    seed = 42 # The seed for the random number generators.
+    seed = 44 # The seed for the random number generators.
     return {"num_episodes" : no_episodes, 
             "gamma" : gamma, 
             "alpha_policy" : alpha_policy, 
@@ -208,8 +206,10 @@ def stopping_criteria_reached(epi_rewards, agent):
 def end_of_episode_saving_criteria(epi_rewards):
    return True # For now. 
     
-def train_reinforce(env_name, hyper_params, device):
+def train_reinforce(env_name, device, hyper_params=None, ):
     # Initialize the agent
+    if hyper_params is None:
+        hyper_params = get_hyper_params()
     #hyper_params = get_hyper_params() 
     env = gym.make(env_name)
     set_seed(env, hyper_params["seed"])
@@ -317,7 +317,7 @@ def hyper_param_tuning(env_name, device):
         hyperparameter_dict = dict(zip(hyperparameter_grid.keys(), params))
         print("Training for Hyperparameter dict : ", hyperparameter_dict)
         time_start = time.time()
-        mean_reward, _, _, _, _, _  = train_reinforce(env_name, hyperparameter_dict, device)
+        mean_reward, _, _, _, _, _  = train_reinforce(env_name, device, hyperparameter_dict)
         time_end = time.time()
         reward_hyperparameter_list.append((hyperparameter_dict, mean_reward, time_end - time_start))
         #print("Time taken for training : ", time_end - time_start)
@@ -335,7 +335,7 @@ def hyper_param_tuning(env_name, device):
     print("Saving the conf in .npy file.")
     np.save(f"cartpole_logs/cartpole-best_hyperparameter_dict.npy", best_hyperparameter_dict)
     best_reward = -10000
-    for i in range(10):
+    for i in range(1):
         print("Running the simulation for the ", i, "th time. ")
         best_hyperparameter_dict["seed"] = best_hyperparameter_dict["seed"] + i
         (mean_reward, 
@@ -343,12 +343,12 @@ def hyper_param_tuning(env_name, device):
         value_approximation_losses, 
         policy_losses, 
         step_per_each_episodes,
-        agent) = train_reinforce(env_name, best_hyperparameter_dict, device)
-        np.save(f"cartpole_logs/cartpole-mean_reward-{i}.npy", mean_reward)
-        np.save(f"cartpole_logs/cartpole-per_episode_reward-{i}.npy", per_episode_reward)
-        np.save(f"cartpole_logs/cartpole-value_approximation_losses-{i}.npy", value_approximation_losses)
-        np.save(f"cartpole_logs/cartpole-policy_losses-{i}.npy", policy_losses)
-        np.save(f"cartpole_logs/cartpole-step_per_each_episodes-{i}.npy", step_per_each_episodes)
+        agent) = train_reinforce(env_name, device, best_hyperparameter_dict)
+        np.save(f"cartpole_logs/temp-cartpole-mean_reward-{i}.npy", mean_reward)
+        np.save(f"cartpole_logs/temp-cartpole-per_episode_reward-{i}.npy", per_episode_reward)
+        np.save(f"cartpole_logs/temp-cartpole-value_approximation_losses-{i}.npy", value_approximation_losses)
+        np.save(f"cartpole_logs/temp-cartpole-policy_losses-{i}.npy", policy_losses)
+        np.save(f"cartpole_logs/temp-cartpole-step_per_each_episodes-{i}.npy", step_per_each_episodes)
         if mean_reward > best_reward:
             best_reward = mean_reward
             print("Best mean, so saving the model weights.")
@@ -363,12 +363,12 @@ def hyper_param_tuning(env_name, device):
 if __name__ == "__main__":
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     env_name = "CartPole-v1"
-    #train_reinforce(env_name, device)
+    train_reinforce(env_name, device)
     # test the agent.
     env = gym.make(env_name)
     agent = CartPoleAgent(env, None, None, None, device, True)
     agent.load_model("./secondary_models/",)
-    agent.test_agent_in_env(100, env_name)
+    agent.test_agent_in_env(10, env_name)
     #hyper_param_tuning(env_name, device)
 
 
