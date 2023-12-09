@@ -8,7 +8,20 @@ For best results we recommend setting up a conda environment or a venv. To insta
 ```pip install -r requirements.txt```
 
 ## Training and Visualizing the agent :
+
+For training the agent using Reinforce with baseline, run : 
+
+For Lunar Lander : 
+```python reinforce.py```
+
+For Cartpole : 
+```python reinforce-cartpole.py```
+
+For acrobot: 
+```python reinforce-acrobot.py```
+
 ### Actor Critic
+
 For training the agent using actor-critic, run :
 
 ```python actor_critic.py --env_name <env_name> --rand_seed <rand_seed>```
