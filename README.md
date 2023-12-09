@@ -42,7 +42,7 @@ For visualizing the trained model using ppo, run (For running the models trained
 ## Reinforce with baseline results : 
 
 ### Cartpole : 
-![](https://github.com/Sriharsha-hatwar/RL-Proj/blob/main/GIFS/reinforce-cartpole.gif)
+![](GIFS/reinforce-cartpole.gif)
 
 ### Acrobot : 
 ![](https://github.com/Sriharsha-hatwar/RL-Proj/blob/main/GIFS/acrobot-reinforce.gif)
