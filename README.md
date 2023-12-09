@@ -52,6 +52,15 @@ For visualizing the trained model using ppo, run (For running the models trained
 
 ## Actor critic results : 
 
+### Cartpole : 
+![](GIFS/actor-critic-cartpole.gif)
+
+### Acrobot : 
+![](GIFS/actor-critic-acrobot.gif)
+
+### Lunar lander : 
+![](GIFS/actor-critic-lunar-lander.gif)
+
 
 ## Proximal policy optimization : 
 
