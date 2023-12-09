@@ -245,8 +245,8 @@ if __name__ == '__main__':
     eval_only = args.eval_only
     env_name = args.env_name
     if not eval_only:
-        agent = Agent(env_name=env_name, eval_only=False, root_dir='actor_critic_new/', rand_seed=rand_seed)
+        agent = Agent(env_name=env_name, eval_only=False, root_dir='actor_critic/', rand_seed=rand_seed)
         agent.train()
         agent.env.close()
-    agent = Agent(env_name=env_name, eval_only=True, root_dir='actor_critic_new/', rand_seed=rand_seed)
+    agent = Agent(env_name=env_name, eval_only=True, root_dir='actor_critic/', rand_seed=rand_seed)
     agent.eval()
