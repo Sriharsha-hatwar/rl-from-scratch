@@ -64,6 +64,13 @@ For visualizing the trained model using ppo, run (For running the models trained
 
 ## Proximal policy optimization : 
 
+### Cartpole : 
+![](GIFS/cartpole-ppo.gif)
 
+### Acrobot : 
+![](GIFS/acrobot-ppo.gif)
+
+### Lunar lander : 
+![](GIFS/lunar-lander-ppo.gif)
 
 
