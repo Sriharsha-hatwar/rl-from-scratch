@@ -1,4 +1,4 @@
-# RL-Proj
+# rl-from-scratch
 
 This project was done as a part of the cource project COMPSCI 687. We have implemented REINFORCE with baseline, Actor critic episodic method and PPO and have discussed and benchmarked the performance of these methods on environments provided by the Open AI gymnasium toolkit. We also implemented different variations of the PPO algorithm, like adding entropy bonus to facilitate exploration and normalizing advantage estimates for stability. Please refer to this [report](report.pdf) for more specific details.
 
